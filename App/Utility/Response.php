@@ -137,17 +137,30 @@ class Response
         511 => 'Network Authentication Required', // RFC6585
     ];
 
+    public static function setHeaders()
+    {
+        header('HTTP/1.1 ' . self::$statusTexts[self::HTTP_OK]);
+        header('Content-Type: application/json');
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+        header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+    }
+
     /**
      * @param array $data
-     * @param $status
+     * @param string $message
+     * @param int $code
      */
-    public static function json(array $data = [], $status = 200)
+    public static function json(array $data, string $message, int $code)
     {
+
+        self::setHeaders();
+
         $response = [
-            'status'  => 'success',
+            'code'    => $code,
+            'status'  => self::$statusTexts[$code],
+            'message' => $message,
             'data'    => $data,
-            'message' => '',
-            'code'    => $status,
         ];
 
         return json_encode($response);
@@ -155,20 +168,21 @@ class Response
 
     /**
      * @param array $data
-     * @param $message
-     * @param $code
+     * @param string $message
+     * @param int $code
      */
-    public static function success($data = [], $message = '', $code = 200)
+    public static function success(array $data = [], string $message = '', int $code = self::HTTP_OK)
     {
-
+        echo self::json($data, $message, $code);
     }
 
     /**
-     * @param $message
-     * @param $code
+     * @param array $data
+     * @param string $message
+     * @param int $code
      */
-    public static function error($message = '', $code = 400)
+    public static function error(array $data = [], string $message = '', int $code = self::HTTP_OK)
     {
-
+        echo self::json($data, $message, $code);
     }
 }
