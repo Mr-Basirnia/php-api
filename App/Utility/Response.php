@@ -137,9 +137,12 @@ class Response
         511 => 'Network Authentication Required', // RFC6585
     ];
 
-    public static function setHeaders()
+    /**
+     * @param $status_code
+     */
+    public static function setHeaders($status_code = self::HTTP_OK)
     {
-        header('HTTP/1.1 ' . self::$statusTexts[self::HTTP_OK]);
+        header("HTTP/1.1 $status_code " . self::$statusTexts[$status_code]);
         header('Content-Type: application/json');
         header('Access-Control-Allow-Origin: *');
         header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
