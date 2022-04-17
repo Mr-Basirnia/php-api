@@ -157,7 +157,7 @@ class Response
     public static function json(array | int $data, string $message, int $code)
     {
 
-        self::setHeaders();
+        self::setHeaders($code);
 
         $response = [
             'code'    => $code,
