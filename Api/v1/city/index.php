@@ -28,6 +28,27 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         break;
 
+    case 'POST':
+
+        $rowBody = json_decode(file_get_contents('php://input'), true);
+
+        $response = $city->post($rowBody);
+
+        if (!isValidCity($rowBody)) { #check if the city data is valid
+
+            Response::error(
+                ['message' => 'Invalid city'],
+                Response::$statusTexts[Response::HTTP_BAD_REQUEST],
+                Response::HTTP_BAD_REQUEST
+            );
+
+            break;
+        }
+
+        Response::success($response, '', Response::HTTP_CREATED);
+
+        break;
+
     default:
         # code...
         break;

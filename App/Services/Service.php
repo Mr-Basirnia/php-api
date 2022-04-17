@@ -4,9 +4,15 @@ namespace App\Services;
 
 interface Service
 {
+    /**
+     * @param $data
+     */
     public function get($data);
 
-    public function post();
+    /**
+     * @param $data
+     */
+    public function post($data);
 
     public function put();
 

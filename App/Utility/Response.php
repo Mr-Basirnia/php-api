@@ -151,7 +151,7 @@ class Response
      * @param string $message
      * @param int $code
      */
-    public static function json(array $data, string $message, int $code)
+    public static function json(array | int $data, string $message, int $code)
     {
 
         self::setHeaders();
@@ -171,7 +171,7 @@ class Response
      * @param string $message
      * @param int $code
      */
-    public static function success(array $data = [], string $message = '', int $code = self::HTTP_OK)
+    public static function success(array | int $data = [], string $message = '', int $code = self::HTTP_OK)
     {
         echo self::json($data, $message, $code);
     }
@@ -181,7 +181,7 @@ class Response
      * @param string $message
      * @param int $code
      */
-    public static function error(array $data = [], string $message = '', int $code = self::HTTP_OK)
+    public static function error(array | int $data = [], string $message = '', int $code = self::HTTP_OK)
     {
         echo self::json($data, $message, $code);
     }

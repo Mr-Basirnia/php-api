@@ -12,9 +12,12 @@ class CityService implements Service
         return getCities($data);
     }
 
-    public function post()
+    /**
+     * @param $data
+     */
+    public function post($data)
     {
-        return 'post';
+        return addCity($data);
     }
 
     public function put()
