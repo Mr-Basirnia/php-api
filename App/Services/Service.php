@@ -14,7 +14,13 @@ interface Service
      */
     public function post($data);
 
-    public function put();
+    /**
+     * @param $data
+     */
+    public function put($data);
 
-    public function delete();
+    /**
+     * @param int $id
+     */
+    public function delete(int $id);
 }

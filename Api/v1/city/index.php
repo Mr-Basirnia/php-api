@@ -49,7 +49,53 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
         break;
 
+    case 'PUT':
+
+        $rowBody = json_decode(file_get_contents('php://input'), true);
+
+        $response = $city->put($rowBody);
+
+        if ($response === 0) {
+
+            Response::error(
+                ['message' => 'City not found'],
+                Response::$statusTexts[Response::HTTP_NOT_FOUND],
+                Response::HTTP_NOT_FOUND
+            );
+
+            break;
+        }
+
+        Response::success($response, '', Response::HTTP_OK);
+
+        break;
+
+    case 'DELETE':
+
+        $response = $city->delete($_GET['city_id'] ?? 0);
+
+        if ($response === 0) {
+
+            Response::error(
+                ['message' => 'City not found'],
+                Response::$statusTexts[Response::HTTP_NOT_FOUND],
+                Response::HTTP_NOT_FOUND
+            );
+
+            break;
+        }
+
+        Response::success($response, '', Response::HTTP_OK);
+
+        break;
+
     default:
-        # code...
+
+        Response::error(
+            ['message' => 'Method not allowed'],
+            Response::$statusTexts[Response::HTTP_METHOD_NOT_ALLOWED],
+            Response::HTTP_METHOD_NOT_ALLOWED
+        );
+
         break;
 }

@@ -20,13 +20,22 @@ class CityService implements Service
         return addCity($data);
     }
 
-    public function put()
+    /**
+     * @param $data
+     */
+    public function put($data)
     {
-        return 'put';
+        $id   = $data['city_id'] ?? 0;
+        $name = $data['name'] ?? '';
+
+        return changeCityName($id, $name);
     }
 
-    public function delete()
+    /**
+     * @param int $id
+     */
+    public function delete(int $id)
     {
-        return 'delete';
+        return deleteCity($id);
     }
 }
