@@ -1,0 +1,12 @@
+{
+    "name": "mr-basirnia/api",
+    "authors": [
+        {
+            "name": "Mr-Basirnia",
+            "email": "mr.basirnia@gmail.com"
+        }
+    ],
+    "require": {
+        "firebase/php-jwt": "^6.1"
+    }
+}

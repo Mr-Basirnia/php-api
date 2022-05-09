@@ -5,6 +5,22 @@ use App\Utility\Response;
 
 require_once "../../../autoloader.php";
 
+# Authorization
+
+$token = getBearerToken();
+$user  = isValidToken($token);
+
+if (false === $user) {
+
+    Response::error(
+        ['in valid token'],
+        Response::$statusTexts[Response::HTTP_UNAUTHORIZED],
+        Response::HTTP_UNAUTHORIZED
+    );
+    die;
+
+}
+
 $city = new CityService();
 
 switch ($_SERVER['REQUEST_METHOD']) {
@@ -12,6 +28,15 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
 
         $response = $city->get($_GET);
+
+        if (!hasAccess($user, $_GET['province_id'] ?? null)) {
+            Response::error(
+                ['you have not access to this province'],
+                Response::$statusTexts[Response::HTTP_FORBIDDEN],
+                Response::HTTP_FORBIDDEN
+            );
+            die();
+        }
 
         if (empty($response)) {
 

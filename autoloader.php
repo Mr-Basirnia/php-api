@@ -1,5 +1,6 @@
 <?php
 
+require_once "vendor/autoload.php";
 require_once "App/iran.php";
 
 spl_autoload_register(function ($class) {
